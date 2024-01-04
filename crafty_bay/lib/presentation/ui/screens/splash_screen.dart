@@ -1,6 +1,7 @@
-
-import 'package:crafty_bay/presentation/ui/utility/asset_path.dart';
+import 'package:crafty_bay/presentation/ui/screens/verify_eamil_screen.dart';
+import 'package:crafty_bay/presentation/ui/widgets/app_log.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,23 +12,35 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  Widget build(BuildContext context) {
-    return   Scaffold(
-      body: Center(
-        child:  Column(
-          children:   [
-            const Spacer(),
-            
-            Image.asset(AssetsPath.logo,width: 120,),
-            const Spacer(),
-            const CircularProgressIndicator(),
-            const SizedBox(height: 8,),
-            const Text('version 1.6.1'),
-             const SizedBox(height: 8,),
+  void initState() {
+    super.initState();
+    moveToNextScreen();
+  }
 
-          ],
-        )
-      ),
+  void moveToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
+    Get.offAll(const VerifyEmailScreen());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+          child:   Column(
+        children: [
+          Spacer(),
+          AppLogo(),
+          Spacer(),
+          CircularProgressIndicator(),
+          SizedBox(
+            height: 8,
+          ),
+          Text('version 1.6.1'),
+          SizedBox(
+            height: 8,
+          ),
+        ],
+      )),
     );
   }
 }
