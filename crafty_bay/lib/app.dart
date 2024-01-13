@@ -45,7 +45,19 @@ class CraftyBuy extends StatelessWidget {
             )
           ),
 
+          
+
         ),
+
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              primary: AppColors.primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8)
+              ),
+              foregroundColor: Colors.white
+            ),
+          ),
 
         textTheme:   TextTheme(
           titleLarge: const TextStyle(
