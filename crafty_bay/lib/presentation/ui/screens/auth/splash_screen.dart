@@ -1,7 +1,9 @@
-import 'package:crafty_bay/presentation/ui/screens/verify_eamil_screen.dart';
+ 
 import 'package:crafty_bay/presentation/ui/widgets/app_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'verify_eamil_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

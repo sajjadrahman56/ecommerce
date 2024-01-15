@@ -1,4 +1,5 @@
-import 'package:crafty_bay/presentation/ui/screens/splash_screen.dart';
+import 'package:crafty_bay/presentation/ui/screens/auth/splash_screen.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'presentation/ui/utility/app_colors.dart';
@@ -51,12 +52,23 @@ class CraftyBuy extends StatelessWidget {
 
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              primary: AppColors.primaryColor,
+               backgroundColor:  AppColors.primaryColor,
+               padding: const EdgeInsets.symmetric(vertical: 14),
+               textStyle: const TextStyle(
+                 fontSize: 14,
+                 letterSpacing: 0.5
+               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8)
               ),
               foregroundColor: Colors.white
             ),
+          ),
+        textButtonTheme: TextButtonThemeData(
+             style: TextButton.styleFrom(
+               
+              foregroundColor: AppColors.primaryColor,
+             ),
           ),
 
         textTheme:   TextTheme(

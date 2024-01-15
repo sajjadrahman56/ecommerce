@@ -1,8 +1,6 @@
 import 'package:crafty_bay/presentation/ui/widgets/app_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../utility/asset_path.dart';
 import 'verify_otp_screen.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
