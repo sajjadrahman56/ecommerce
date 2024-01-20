@@ -1,20 +1,20 @@
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:get/get.dart';
+ 
 
-class ImageCarousel extends StatefulWidget {
-  const ImageCarousel({
+class BannerCarousel extends StatefulWidget {
+  const BannerCarousel({
     super.key,  this.height,
   });
 
   final double? height ;
 
   @override
-  State<ImageCarousel> createState() => _ImageCarouselState();
+  State<BannerCarousel> createState() => _BannerCarouselState();
 }
 
-class _ImageCarouselState extends State<ImageCarousel> {
+class _BannerCarouselState extends State<BannerCarousel> {
 
   ValueNotifier<int> _currentIndex = ValueNotifier<int>(0);
   @override
@@ -27,17 +27,22 @@ class _ImageCarouselState extends State<ImageCarousel> {
           onPageChanged: (index, reason){
               _currentIndex.value = index;
           
-          },),
+          },
+          viewportFraction: 1.0,
+          autoPlay: true,
+          
+          ),
           
           items: [1, 2, 3, 4, 5].map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    margin: EdgeInsets.symmetric(horizontal: 1.0),
                     decoration: BoxDecoration(
-                        color: Colors.amber,
+                        color:AppColors.primaryColor ,
                         borderRadius: BorderRadius.circular(16)),
+                        alignment: Alignment.center,
                     child: Text(
                       'text $i',
                       style: TextStyle(fontSize: 16.0),

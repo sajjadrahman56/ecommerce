@@ -2,7 +2,8 @@ import 'package:crafty_bay/presentation/ui/utility/asset_path.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/home/circle_Icon_button_widget.dart';
-import '../widgets/image_carousel.dart';
+import '../widgets/home/banner_image_carousel.dart';
+import '../widgets/home/section_title.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,7 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 16,
             ),
-            ImageCarousel()
+            const BannerCarousel(),
+            const SizedBox(
+              height: 16,
+            ),
+            SectionTitle(
+              title: 'All Categories',
+              onTapSeeAll: () {},
+            ),
           ],
         ),
       )),
@@ -84,4 +92,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
