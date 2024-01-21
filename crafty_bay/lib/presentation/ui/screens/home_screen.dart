@@ -1,3 +1,4 @@
+import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
 import 'package:crafty_bay/presentation/ui/utility/asset_path.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SectionTitle(
               title: 'All Categories',
-              onTapSeeAll: () {},
+              onTapSeeAll: () {},              
             ),
+            Card(
+              elevation: 0,
+             // color: AppColors.primaryColor.opacity(0.2),
+            )
           ],
         ),
       )),
