@@ -1,8 +1,10 @@
+import 'package:crafty_bay/controller_binder.dart';
 import 'package:crafty_bay/presentation/ui/screens/auth/splash_screen.dart';
  
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'presentation/ui/utility/app_colors.dart';
+ 
 
 class CraftyBuy extends StatelessWidget {
   const CraftyBuy({super.key});
@@ -85,6 +87,11 @@ class CraftyBuy extends StatelessWidget {
         
       ) ,
       home:const SplashScreen(),
+      initialBinding: ControllerBinder(),
     );
   }
 }
+
+
+
+
