@@ -1,3 +1,4 @@
+import 'package:crafty_bay/presentation/ui/screens/product_list_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/asset_path.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
             categoryList,
             SectionTitle(
               title: 'Popular',
-              onTapSeeAll: () {},
+              onTapSeeAll: () {
+                Get.to(()=> ProductListScreen());
+              },
             ),
             productList,
             const SizedBox(

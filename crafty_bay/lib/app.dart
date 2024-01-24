@@ -83,6 +83,12 @@ class CraftyBuy extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: Colors.grey.shade600
           ),
+        ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(fontSize: 18,color: Colors.black),
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
+          elevation: 5
         )
         
       ) ,

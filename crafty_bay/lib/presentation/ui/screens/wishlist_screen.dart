@@ -34,18 +34,22 @@ class _WishListScreenState extends State<WishListScreen> {
               ),
             ),
           ),
-          body: GridView.builder(
-              itemCount: 20,
-              gridDelegate:
-                 const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 0.95,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 8,
-                    ),
-              itemBuilder: (context, index) {
-                return FittedBox(child: ProductCard());
-              })),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+                itemCount: 20,
+                gridDelegate:
+                   const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 0.95,
+                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 8,
+                      ),
+                itemBuilder: (context, index) {
+                  return FittedBox(child: ProductCard());
+                }),
+          )),
+    
     );
   }
 }
