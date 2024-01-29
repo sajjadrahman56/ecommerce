@@ -1,8 +1,6 @@
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- 
-
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../widgets/cart/cart_product_item.dart';
 
@@ -49,14 +47,14 @@ class _CartsScreenState extends State<CartsScreen> {
                    )
                 
                 ),
-            totalPriceAndCheckSection,
+            totalPriceAndCheckOutSection,
           ],
         ),
       ),
     );
   }
 
-  Container get totalPriceAndCheckSection {
+  Container get totalPriceAndCheckOutSection {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
