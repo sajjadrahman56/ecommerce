@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:crafty_bay/presentation/state_holders/send_email_opt_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/verify_otp_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/auth/complete_profile_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
@@ -9,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../widgets/circular_progress_indicator.dart';
+import '../main_bottm_nav_screen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
 
@@ -92,7 +92,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   backgroundColor: Colors.transparent,
                   enableActiveFill: true,
                   onCompleted: (v) {
-                    print("Completed");
+                    
                     _timer.cancel(); // reset the timer when OTP is completed
                   },
                   appContext: context,
@@ -102,35 +102,34 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: GetBuilder<VerifyOtpController>(
+                  child: GetBuilder<VerifyOTPController>(
                     builder: (verifyOtpController) {
                       return Visibility(
                         visible: verifyOtpController.inProgress==false,
                         replacement: const CenterCircularProgressIndicator(),
-                        child:  ElevatedButton(onPressed: () async {
-                              
-                              if(_formKey.currentState!.validate()){
-                                final bool response = 
-                                await verifyOtpController.verifyOtp(widget.email, _otpTEController.text);
-                                        
-                                if (response==true) {
-                                  Get.offAll(  CompleteProfileScreen());
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              final bool response = await verifyOtpController.verifyOTP(
+                                  widget.email, _otpTEController.text);
+                              if (response) {
+                                if (verifyOtpController.shouldNavigateCompleteProfile) {
+                                  Get.to(() =>   CompleteProfileScreen());
                                 } else {
-                                   Get.showSnackbar(
-                                    GetSnackBar(
-                                      title: 'OTP verification failed',
-                                      message: verifyOtpController.errorMessage,
-                                      duration: const Duration(seconds: 2),
-                                      borderColor: Colors.red,
-                                        
-                                    )
-                                   );
+                                  Get.offAll(() => const MainBottomNavScreen());
                                 }
-                                //Get.to(()=>    CompleteProfileScreen());
+                              } else {
+                                Get.showSnackbar(GetSnackBar(
+                                  title: 'hihi',
+                                  message: verifyOtpController.errorMessage,
+                                  duration: const Duration(seconds: 2),
+                                  isDismissible: true,
+                                ));
                               }
-                               
-                            }, child: const Text('Next'))
-                          
+                            }
+                          },
+                          child: const Text('Next'),
+                        ),
                       );
                     }
                   ),

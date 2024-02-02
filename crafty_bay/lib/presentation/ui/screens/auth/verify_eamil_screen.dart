@@ -85,7 +85,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                               } else {
                                 Get.showSnackbar(GetSnackBar(
                                   message: controller.errorMessage,
-                                  duration: const Duration(seconds: 3),
+                                  duration: const Duration(seconds: 2),
                                   title: 'Send Otp Fail',
                                   isDismissible: true,
                                 ));

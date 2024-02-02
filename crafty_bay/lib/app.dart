@@ -6,9 +6,14 @@ import 'package:get/get.dart';
 import 'presentation/ui/utility/app_colors.dart';
  
 
-class CraftyBuy extends StatelessWidget {
+class CraftyBuy extends StatefulWidget {
   const CraftyBuy({super.key});
 
+  @override
+  State<CraftyBuy> createState() => _CraftyBuyState();
+}
+
+class _CraftyBuyState extends State<CraftyBuy> {
   @override
   Widget build(BuildContext context) {
     return   GetMaterialApp(

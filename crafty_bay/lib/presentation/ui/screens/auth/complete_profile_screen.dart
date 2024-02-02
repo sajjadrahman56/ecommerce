@@ -1,102 +1,198 @@
-import 'package:crafty_bay/presentation/ui/screens/main_bottm_nav_screen.dart';
-import 'package:crafty_bay/presentation/ui/widgets/app_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- 
+import '../../../../data/models/creat_profiles_params.dart';
+import '../../widgets/app_log.dart';
+import '../../widgets/circular_progress_indicator.dart';
+import '../main_bottm_nav_screen.dart';
+import 'package:crafty_bay/presentation/state_holders/complete_profile_controller.dart';
+import 'package:crafty_bay/presentation/state_holders/verify_otp_controller.dart';
+
 class CompleteProfileScreen extends StatefulWidget {
+  const CompleteProfileScreen({Key? key}) : super(key: key);
+
   @override
   State<CompleteProfileScreen> createState() => _CompleteProfileScreenState();
 }
 
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
-   
-@override
+  final TextEditingController _firstNameTEController = TextEditingController();
+  final TextEditingController _lastNameTEController = TextEditingController();
+  final TextEditingController _mobileTEController = TextEditingController();
+  final TextEditingController _cityTEController = TextEditingController();
+  final TextEditingController _shippingAddressTEController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 48,
-              ),
-              const AppLogo(height: 80),
-              const SizedBox(
-                height: 24,
-              ),
-              Text(
-                'Compelte Profile',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontSize:28
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 48,
                 ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                'Get started with your details',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Email',
+                const AppLogo(
+                  height: 80,
                 ),
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'First Name',
+                const SizedBox(
+                  height: 24,
                 ),
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Last Name',
+                Text(
+                  'Complete Profile',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontSize: 28),
                 ),
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Phone No',
+                const SizedBox(
+                  height: 4,
                 ),
-                keyboardType: TextInputType.phone,
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'City',
+                Text(
+                  'Get started with us with your details',
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                maxLines: 4,
-                decoration: const InputDecoration(
-                  hintText: 'Shipping Address',
+                const SizedBox(
+                  height: 16,
                 ),
-                textInputAction: TextInputAction.done,
+                TextFormField(
+                  controller: _firstNameTEController,
+                  decoration: const InputDecoration(hintText: 'First name'),
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Enter first name';
+                    }
+                    if (RegExp(r'\d').hasMatch(value!)) {
+                      return 'Name should not contain digits';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  controller: _lastNameTEController,
+                  decoration: const InputDecoration(hintText: 'Last name'),
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Enter last name';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  controller: _mobileTEController,
+                  decoration: const InputDecoration(hintText: 'Mobile'),
+                  keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Enter mobile number';
+                    }
 
-              ),
-               
-              const SizedBox(height: 24,),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(onPressed: (){
-                    Get.offAll(const MainBottomNavScreen());
-                   
-                },
-                 child: const Text('Complete')),
-              )
-            ],
+                    // Check if the mobile number starts with +8801 or 01 and has a length of 11
+                    if (!RegExp(r'^(\+8801|01)\d{9}$').hasMatch(value!)) {
+                      return 'Invalid mobile number';
+                    }
+
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  controller: _cityTEController,
+                  decoration: const InputDecoration(hintText: 'City'),
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Enter your city name';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  controller: _shippingAddressTEController,
+                  maxLines: 4,
+                  decoration: const InputDecoration(hintText: 'Shipping address'),
+                  textInputAction: TextInputAction.done,
+                  validator: (value) {
+                    // Shipping address can be empty, so no validation required.
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: GetBuilder<CompleteProfileController>(
+                    builder: (completeProfileController) {
+                      return Visibility(
+                        visible: !completeProfileController.inProgress,
+                        replacement: const CenterCircularProgressIndicator(),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              final createProfileParams = CreateProfileParams(
+                                firstName: _firstNameTEController.text.trim(),
+                                lastName: _lastNameTEController.text.trim(),
+                                mobile: _mobileTEController.text.trim(),
+                                city: _cityTEController.text.trim(),
+                                shippingAddress: _shippingAddressTEController.text.trim(),
+                              );
+
+                              final bool result = await completeProfileController.createProfileData(
+                                Get.find<VerifyOTPController>().token,
+                                createProfileParams,
+                              );
+                              print('---------------------result: $result');
+                              if (result) {
+                                Get.offAll(() => const MainBottomNavScreen());
+                              } else {
+                                Get.showSnackbar(GetSnackBar(
+                                  title: 'Complete profile failed',
+                                  message: completeProfileController.errorMessage,
+                                  duration: const Duration(seconds: 2),
+                                  isDismissible: true,
+                                ));
+                              }
+                            }
+                          },
+                          child: const Text('Complete'),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _firstNameTEController.dispose();
+    _lastNameTEController.dispose();
+    _cityTEController.dispose();
+    _mobileTEController.dispose();
+    _shippingAddressTEController.dispose();
+    super.dispose();
   }
 }
