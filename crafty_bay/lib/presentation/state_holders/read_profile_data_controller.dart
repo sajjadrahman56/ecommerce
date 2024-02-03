@@ -32,7 +32,7 @@ class ReadProfileDataController extends GetxController {
       update();
       return true;
     } else {
-      _errorMessage = response.errorMessage!;
+      _errorMessage = response.errorMessage;
       update();
       return false;
     }

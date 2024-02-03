@@ -159,7 +159,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                                 Get.find<VerifyOTPController>().token,
                                 createProfileParams,
                               );
-                              print('---------------------result: $result');
+                        
                               if (result) {
                                 Get.offAll(() => const MainBottomNavScreen());
                               } else {

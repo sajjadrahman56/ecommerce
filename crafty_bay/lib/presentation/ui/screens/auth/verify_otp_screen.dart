@@ -6,7 +6,6 @@ import 'package:crafty_bay/presentation/ui/widgets/app_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../widgets/circular_progress_indicator.dart';
 import '../main_bottm_nav_screen.dart';
 
@@ -149,7 +148,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                       TextSpan(
                         text: '$seconds s',
                         style: TextStyle(
-                          color: AppColors.primaryColor,
+                          color:  AppColors.primaryColor,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

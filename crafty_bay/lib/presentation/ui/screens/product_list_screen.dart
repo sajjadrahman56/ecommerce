@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/product_card_item.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key, this.category});
+  const ProductListScreen({super.key, this.category, int? categoryId});
 
   final String? category;
   @override

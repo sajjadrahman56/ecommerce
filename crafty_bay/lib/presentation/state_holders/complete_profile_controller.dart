@@ -21,7 +21,7 @@ class CompleteProfileController extends GetxController {
 
   Future<bool> createProfileData(
       String token, CreateProfileParams params) async {
-    print('\n\n\n\createProfileData $token inside---------------------');
+    //print('\n\n\n\createProfileData $token inside---------------------');
     _inProgress = true;
     update();
     final response = await NetworkCaller()
@@ -33,14 +33,14 @@ class CompleteProfileController extends GetxController {
       update();
       return true;
     } else {
-      _errorMessage = response.errorMessage!;
+      _errorMessage = response.errorMessage;
 
       if (!response.isSuccess) {
         if (response.statusCode == 401) {
-          print('-------- sajjad send Unauthorized error. Check token sajvalidity.');
+          // print('-------- sajjad send Unauthorized error. Check token sajvalidity.');
         }
-        _errorMessage = response.errorMessage!;
-        print('API Error: ${response.errorMessage}'); // Log the error details
+        _errorMessage = response.errorMessage;
+        // print('API Error: ${response.errorMessage}'); // Log the error details
         update();
         return false;
       }

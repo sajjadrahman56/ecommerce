@@ -1,12 +1,16 @@
 import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
+ 
 import 'package:crafty_bay/presentation/ui/screens/auth/verify_eamil_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/product_list_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/asset_path.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../state_holders/category_controller.dart';
+import '../../state_holders/home_banner_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../widgets/category_item.dart';
+import '../widgets/circular_progress_indicator.dart';
 import '../widgets/home/circle_Icon_button_widget.dart';
 import '../widgets/home/banner_image_carousel.dart';
 import '../widgets/home/section_title.dart';
@@ -20,6 +24,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +42,20 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 16,
             ),
-            const BannerCarousel(),
-            const SizedBox(
-              height: 16,
-            ),
+               SizedBox(
+                height: 210,
+                child: GetBuilder<HomeBannerController>(
+                    builder: (homeBannerController) {
+                  return Visibility(
+                    visible: homeBannerController.inProgress == false,
+                    replacement: const CenterCircularProgressIndicator(),
+                    child: BannerCarousel(
+                      bannerList:
+                          homeBannerController.bannerListModel.bannerList ?? [],
+                    ),
+                  );
+                }),
+              ),
             SectionTitle(
               title: 'All Categories',
               onTapSeeAll: () {
@@ -99,26 +115,54 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // SizedBox get categoryList {
+  //   return SizedBox(
+  //     height: 130,
+  //     child: ListView.separated(
+  //       primary: false,
+  //       shrinkWrap: true,
+  //       itemCount: 10,
+  //       scrollDirection: Axis.horizontal,
+  //       itemBuilder: (context, index) {
+  //         return const CategoryItem();
+  //       },
+  //       separatorBuilder: (_, index) {
+  //         return const SizedBox(
+  //           width: 8,
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
   SizedBox get categoryList {
     return SizedBox(
       height: 130,
-      child: ListView.separated(
-        primary: false,
-        shrinkWrap: true,
-        itemCount: 10,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return const CategoryItem();
-        },
-        separatorBuilder: (_, index) {
-          return const SizedBox(
-            width: 8,
+      child: GetBuilder<CategoryController>(
+        builder: (categoryController) {
+          return Visibility(
+            visible: categoryController.inProgress == false,
+            replacement: const CenterCircularProgressIndicator(),
+            child: ListView.separated(
+              itemCount: categoryController.categoryListModel.categoryList?.length ?? 0,
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return CategoryItem(
+                    category: categoryController.categoryListModel
+                        .categoryList![index]);
+              },
+              separatorBuilder: (_, __) {
+                return const SizedBox(
+                  width: 8,
+                );
+              },
+            ),
           );
-        },
+        }
       ),
     );
   }
-
   SizedBox get productList {
     return SizedBox(
       height: 190,
