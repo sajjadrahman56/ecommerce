@@ -1,4 +1,5 @@
 import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
+import 'package:crafty_bay/presentation/state_holders/popular_product_controler.dart';
  
 import 'package:crafty_bay/presentation/ui/screens/auth/verify_eamil_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/product_list_screen.dart';
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Get.to(()=> ProductListScreen());
               },
             ),
-            productList,
+            popularProductList,
             const SizedBox(
               height: 8,
             ),
@@ -172,13 +173,41 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: 10,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return ProductCard();
+         // return ProductCardItem();
         },
         separatorBuilder: (_, index) {
           return const SizedBox(
             width: 8,
           );
         },
+      ),
+    );
+  }
+  SizedBox get popularProductList {
+    return SizedBox(
+      height: 190,
+      child: GetBuilder<PopularProductController>(
+        builder: (popularProductController) {
+          return Visibility(
+            visible: popularProductController.inProgress == false,
+            replacement: const CenterCircularProgressIndicator(),
+            child: ListView.separated(
+              primary: false,
+              shrinkWrap: true,
+              itemCount: 10,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return ProductCardItem(
+                  product: popularProductController.productListModel.productList![index],);
+              },
+              separatorBuilder: (_, index) {
+                return const SizedBox(
+                  width: 8,
+                );
+              },
+            ),
+          );
+        }
       ),
     );
   }

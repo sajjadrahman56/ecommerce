@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/product_card_item.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -17,7 +16,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         appBar: AppBar(
           title: Text(
             widget.category ?? 'Prodcts',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
             ),
           ),
@@ -33,7 +32,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 mainAxisSpacing: 8,
               ),
               itemBuilder: (context, index) {
-                return FittedBox(child: ProductCard());
+                //return   FittedBox(child: ProductCardItem());
               }),
         ));
   }

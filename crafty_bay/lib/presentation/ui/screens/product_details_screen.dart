@@ -7,7 +7,7 @@ import '../widgets/product_details/color_selector.dart';
 import '../widgets/product_details/size_selector.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required int productId});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();

@@ -1,5 +1,6 @@
 
 import 'package:crafty_bay/presentation/state_holders/complete_profile_controller.dart';
+import 'package:crafty_bay/presentation/state_holders/popular_product_controler.dart';
 import 'package:crafty_bay/presentation/state_holders/send_email_opt_controller.dart';
 import 'package:get/get.dart';
 
@@ -21,5 +22,6 @@ class ControllerBinder extends Bindings{
     Get.put(CompleteProfileController());
     Get.put(HomeBannerController());
     Get.put(CategoryController());
+    Get.put(PopularProductController());
   }
 }
