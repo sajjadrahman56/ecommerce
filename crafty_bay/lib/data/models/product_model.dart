@@ -10,7 +10,7 @@ class ProductModel {
   String? discountPrice;
   String? image;
   int? stock;
-  int? star;
+  double? star;
   String? remark;
   int? categoryId;
   int? brandId;

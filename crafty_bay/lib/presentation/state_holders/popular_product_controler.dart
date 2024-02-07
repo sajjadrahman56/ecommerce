@@ -77,6 +77,7 @@ class PopularProductController extends GetxController {
   }
 }
 */
+
 import 'package:crafty_bay/data/models/product_list_model.dart';
 import 'package:crafty_bay/data/utility/urls.dart';
 import 'package:get/get.dart';
@@ -101,9 +102,14 @@ class PopularProductController extends GetxController {
     _inProgress = true;
     update();
     final response = await NetworkCaller().getRequest(Urls.popularProduct);
+    print('i am from Propular Product Controller');
+    print(response.responseData);
     _inProgress = false;
     if (response.isSuccess) {
       _productListModel = ProductListModel.fromJson(response.responseData);
+      print(_productListModel.productList!.length);
+      print('i am length of product model');
+      print(_productListModel);
       isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;
