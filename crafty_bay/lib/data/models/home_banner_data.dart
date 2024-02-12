@@ -1,4 +1,4 @@
-class BannerItem {
+class BannerData {
   int? id;
   String? title;
   String? shortDes;
@@ -7,7 +7,7 @@ class BannerItem {
   String? createdAt;
   String? updatedAt;
 
-  BannerItem(
+  BannerData(
       {this.id,
       this.title,
       this.shortDes,
@@ -16,7 +16,7 @@ class BannerItem {
       this.createdAt,
       this.updatedAt});
 
-  BannerItem.fromJson(Map<String, dynamic> json) {
+  BannerData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     shortDes = json['short_des'];
@@ -27,14 +27,14 @@ class BannerItem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =   Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['short_des'] = this.shortDes;
-    data['image'] = this.image;
-    data['product_id'] = this.productId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['short_des'] = shortDes;
+    data['image'] = image;
+    data['product_id'] = productId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

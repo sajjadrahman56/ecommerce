@@ -1,14 +1,14 @@
-class BrandModel {
+class BrandData {
   int? id;
   String? brandName;
   String? brandImg;
   String? createdAt;
   String? updatedAt;
 
-  BrandModel(
+  BrandData(
       {this.id, this.brandName, this.brandImg, this.createdAt, this.updatedAt});
 
-  BrandModel.fromJson(Map<String, dynamic> json) {
+  BrandData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     brandName = json['brandName'];
     brandImg = json['brandImg'];

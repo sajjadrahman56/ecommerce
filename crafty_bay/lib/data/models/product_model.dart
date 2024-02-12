@@ -1,5 +1,5 @@
-import 'package:crafty_bay/data/models/brand_model.dart';
-import 'package:crafty_bay/data/models/category_list_item.dart';
+import 'brand_data.dart';
+import 'category_data.dart';
 
 class ProductModel {
   int? id;
@@ -10,14 +10,14 @@ class ProductModel {
   String? discountPrice;
   String? image;
   int? stock;
-  double? star;
+  int? star;
   String? remark;
   int? categoryId;
   int? brandId;
   String? createdAt;
   String? updatedAt;
-  BrandModel? brand;
-  CategoryListItem? category;
+  BrandData? brand;
+  CategoryData? category;
 
   ProductModel(
       {this.id,
@@ -52,9 +52,9 @@ class ProductModel {
     brandId = json['brand_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    brand = json['brand'] != null ? BrandModel.fromJson(json['brand']) : null;
+    brand = json['brand'] != null ? BrandData.fromJson(json['brand']) : null;
     category = json['category'] != null
-        ? CategoryListItem.fromJson(json['category'])
+        ? CategoryData.fromJson(json['category'])
         : null;
   }
 

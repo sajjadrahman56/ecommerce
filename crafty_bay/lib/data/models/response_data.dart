@@ -1,8 +1,8 @@
 class ResponseData {
   final bool isSuccess;
   final int statusCode;
-  final String errorMessage;
   final dynamic responseData;
+  final String errorMessage;
 
   ResponseData({
     required this.isSuccess,
