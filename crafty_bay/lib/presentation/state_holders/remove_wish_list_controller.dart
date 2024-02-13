@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import '../../data/service/network_caller.dart';
 import '../../data/utility/urls.dart';
 
-class AddToCartController extends GetxController {
+class RemoveWishListController extends GetxController {
   bool _inProgress = false;
 
   bool get inProgress => _inProgress;
@@ -11,21 +11,15 @@ class AddToCartController extends GetxController {
 
   String get errorMessage => _errorMessage;
 
-  Future<bool> addToCart(
-      int productId, String color, String size, int qty) async {
+  Future<bool> removeWishListItem(
+    int productId,
+  ) async {
     bool isSuccess = false;
     _inProgress = true;
     update();
 
-    Map<String, dynamic> inputParams = {
-      "product_id": productId,
-      "color": color,
-      "size": size,
-      "qty": qty
-    };
-    final response = await NetworkCaller().postRequest(
-      Urls.addToCart,
-      body: inputParams,
+    final response = await NetworkCaller().getRequest(
+      Urls.removeWishList(productId),
     );
     _inProgress = false;
     if (response.isSuccess) {

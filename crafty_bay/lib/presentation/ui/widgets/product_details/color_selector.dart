@@ -26,78 +26,36 @@ class _ColorSelectorState extends State<ColorSelector> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: widget.colors
-          .map((c) => InkWell(
-                borderRadius: BorderRadius.circular(15),
-                onTap: () {
-                  _selectedColor = c;
-                  widget.onChange(c);
-                  if (mounted) {
-                    setState(() {});
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+          .map(
+            (c) => InkWell(
+              onTap: () {
+                _selectedColor = c;
+                widget.onChange(c);
+                if (mounted) {
+                  setState(() {});
+                }
+              },
+              borderRadius: BorderRadius.circular(16),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: CircleAvatar(
+                  radius: 16,
+                  backgroundColor: Colors.grey,
                   child: CircleAvatar(
                     radius: 15,
                     backgroundColor: c,
                     child: _selectedColor == c
-                        ? const Icon(
+                        ?  Icon(
                             Icons.done,
-                            color: Colors.white,
+                            color: c != Colors.white ? Colors.white : Colors.black
                           )
                         : null,
                   ),
                 ),
-              ))
+              ),
+            ),
+          )
           .toList(),
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-
-// class ColorSelector extends StatefulWidget {
-//   const ColorSelector(
-//       {super.key, required this.colors, required this.onChanged});
-
-//   final List<Color> colors;
-//   final Function(Color) onChanged;
-//   @override
-//   State<ColorSelector> createState() => _ColorSelectorState();
-// }
-
-// class _ColorSelectorState extends State<ColorSelector> {
-//   late Color selectedColor;
-
-//   void initState() {
-//     super.initState();
-//     selectedColor = widget.colors.first;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: widget.colors
-//           .map((c) => InkWell(
-//                 onTap: () {
-//                   selectedColor = c;
-//                   widget.onChanged(c);
-//                   if (mounted) setState(() {});
-//                 },
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(4.0),
-//                   child: CircleAvatar(
-//                       backgroundColor: c,
-//                       child: selectedColor == c
-//                           ? Icon(
-//                               Icons.check,
-//                               color: Colors.white,
-//                             )
-//                           : null),
-//                 ),
-//               ))
-//           .toList(),
-//     );
-//   }
-// }

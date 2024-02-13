@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import '../../data/service/network_caller.dart';
 import '../../data/utility/urls.dart';
 
-class AddToCartController extends GetxController {
+class AddReviewController extends GetxController {
   bool _inProgress = false;
 
   bool get inProgress => _inProgress;
@@ -11,20 +11,18 @@ class AddToCartController extends GetxController {
 
   String get errorMessage => _errorMessage;
 
-  Future<bool> addToCart(
-      int productId, String color, String size, int qty) async {
+  Future<bool> addReview(int productId, int rating, String description) async {
     bool isSuccess = false;
     _inProgress = true;
     update();
 
     Map<String, dynamic> inputParams = {
+      "description": description,
       "product_id": productId,
-      "color": color,
-      "size": size,
-      "qty": qty
+      "rating": rating
     };
     final response = await NetworkCaller().postRequest(
-      Urls.addToCart,
+      Urls.addReview,
       body: inputParams,
     );
     _inProgress = false;

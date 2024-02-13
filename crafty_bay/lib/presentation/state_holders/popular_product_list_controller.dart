@@ -1,11 +1,9 @@
-import 'package:crafty_bay/data/models/product_list_model.dart';
- 
-import 'package:crafty_bay/data/utility/urls.dart';
+ import 'package:crafty_bay/data/models/product_list_model.dart';
 import 'package:get/get.dart';
-
 import '../../data/service/network_caller.dart';
+import '../../data/utility/urls.dart';
 
-class NewProductController extends GetxController {
+class PopularProductListController extends GetxController {
   bool _inProgress = false;
 
   bool get inProgress => _inProgress;
@@ -18,11 +16,11 @@ class NewProductController extends GetxController {
 
   ProductListModel get productListModel => _productListModel;
 
-  Future<bool> getNewProductList() async {
+  Future<bool> getPopularProductList() async {
     bool isSuccess = false;
     _inProgress = true;
     update();
-    final response = await NetworkCaller().getRequest(Urls.newProduct);
+    final response = await NetworkCaller().getRequest(Urls.popularProduct);
     _inProgress = false;
     if (response.isSuccess) {
       _productListModel = ProductListModel.fromJson(response.responseData);

@@ -1,17 +1,21 @@
-import 'package:crafty_bay/data/models/profile.dart';
-import 'package:crafty_bay/data/utility/urls.dart';
 import 'package:get/get.dart';
+import '../../data/models/read_profile_model.dart';
 import '../../data/service/network_caller.dart';
+import '../../data/utility/urls.dart';
 
 class ReadProfileDataController extends GetxController {
   bool _inProgress = false;
+
   bool get inProgress => _inProgress;
 
   String _errorMessage = '';
-  String get errorMessage => _errorMessage;
-  Profile _profile = Profile();
 
-  Profile get profile => _profile;
+  String get errorMessage => _errorMessage;
+
+  ReadProfileModel _readProfile = ReadProfileModel();
+
+  ReadProfileModel get readProfile => _readProfile;
+
   bool _isProfileCompleted = false;
 
   bool get isProfileCompleted => _isProfileCompleted;
@@ -19,14 +23,15 @@ class ReadProfileDataController extends GetxController {
   Future<bool> readProfileData(String token) async {
     _inProgress = true;
     update();
-    final response = await NetworkCaller().getRequest(Urls.readProfile, token: token);
+    final response =
+        await NetworkCaller().getRequest(Urls.readProfile, token: token);
     _inProgress = false;
     if (response.isSuccess) {
       final profileData = response.responseData['data'];
-      if (profileData.isEmpty) {
+      if (profileData == null) {
         _isProfileCompleted = false;
       } else {
-        _profile = Profile.fromJson(profileData[0]);
+        _readProfile = ReadProfileModel.fromJson(profileData);
         _isProfileCompleted = true;
       }
       update();

@@ -1,9 +1,10 @@
  
 import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
-import 'package:crafty_bay/presentation/ui/widgets/app_log.dart';
+import 'package:crafty_bay/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../main_bottm_nav_screen.dart';
+import '../widgets/app_logo.dart';
+
 
 
 class SplashScreen extends StatefulWidget {

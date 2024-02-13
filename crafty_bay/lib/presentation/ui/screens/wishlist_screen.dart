@@ -1,109 +1,80 @@
-import 'package:crafty_bay/presentation/state_holders/main_bottom_nav_controller.dart';
+import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indicator.dart';
+import 'package:crafty_bay/presentation/ui/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WishListScreen extends StatefulWidget {
-  const WishListScreen({super.key});
+import '../../state_holders/main_bottom_nav_controller.dart';
+import '../../state_holders/wish_list_controller.dart';
+
+class WishlistScreen extends StatefulWidget {
+  const WishlistScreen({super.key});
 
   @override
-  State<WishListScreen> createState() => _WishListScreenState();
+  State<WishlistScreen> createState() => _WishlistScreenState();
 }
+class _WishlistScreenState extends State<WishlistScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<WishListController>().getWishList();
+    });
+  }
 
-class _WishListScreenState extends State<WishListScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (value) {
+      onPopInvoked: (_) {
         Get.find<MainBottomNavController>().backToHome();
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Get.find<MainBottomNavController>().backToHome();
-            },
-          ),
-          title: const Text(
-            'Wishlist',
-            style: TextStyle(fontSize: 18),
-          ),
-          elevation: 3,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: GridView.builder(
-            itemCount: 100,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.90,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 4
+        appBar: appBar,
+        body: GetBuilder<WishListController>(builder: (controller) {
+          if (controller.inProgress) {
+            return const CenterCircularProgressIndication();
+          }
+          return Visibility(
+            visible: controller.wishListModel.wishItemList?.isNotEmpty ?? false,
+            replacement: const Center(
+              child: Text('Empty Wish List'),
             ),
-            itemBuilder: (context, index) {
-              // return const FittedBox(child: ProductCardItem());
-            },
-          ),
-        ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12, top: 4),
+              child: GridView.builder(
+                itemCount: controller.wishListModel.wishItemList?.length ?? 0,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 0.8,
+                ),
+                itemBuilder: (context, index) {
+                  return FittedBox(
+                    child: ProductCard(
+                      productModel: controller
+                          .wishListModel.wishItemList![index].product!,
+                      addToWishList: false,
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        }),
       ),
     );
   }
+
+  AppBar get appBar {
+    return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          Get.find<MainBottomNavController>().backToHome();
+        },
+      ),
+      title: const Text('Wish List'),
+    );
+  }
 }
-
-
-// import 'package:crafty_bay/presentation/ui/widgets/product_card_item.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import '../../state_holders/main_bottom_nav_controller.dart';
-
-// class WishListScreen extends StatefulWidget {
-//   const WishListScreen({super.key});
-
-//   @override
-//   State<WishListScreen> createState() => _WishListScreenState();
-// }
-
-// class _WishListScreenState extends State<WishListScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return PopScope(
-//       canPop: false,
-//       onPopInvoked: (value) {
-//         Get.find<MainBottomNavController>().backToHome();
-//       },
-//       child: Scaffold(
-//           appBar: AppBar(
-//             leading: IconButton(
-//               onPressed: () {
-//                 Get.find<MainBottomNavController>().backToHome();
-//               },
-//               icon: const Icon(Icons.arrow_back_ios),
-//             ),
-//             title: const Text(
-//               'Wishlist',
-//               style: TextStyle(
-//                 fontSize: 18,
-//               ),
-//             ),
-//           ),
-//           body: Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: GridView.builder(
-//                 itemCount: 20,
-//                 gridDelegate:
-//                    const SliverGridDelegateWithFixedCrossAxisCount(
-//                       crossAxisCount: 3,
-//                       childAspectRatio: 0.95,
-//                       crossAxisSpacing: 4,
-//                       mainAxisSpacing: 8,
-//                       ),
-//                 itemBuilder: (context, index) {
-//                  // return const FittedBox(child: ProductCardItem());
-//                 }),
-//           )),
-    
-//     );
-//   }
-// }

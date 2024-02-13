@@ -1,28 +1,32 @@
 import 'dart:convert';
-
-import 'package:crafty_bay/data/models/profile.dart';
- 
+import 'package:crafty_bay/data/models/complete_profile_model.dart';
+import 'package:crafty_bay/data/models/read_profile_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../ui/screens/auth/verify_eamil_screen.dart';
 
 class AuthController extends GetxController {
   static String? token;
-  Profile? profile;
+  ReadProfileModel? readProfile;
+  CompleteProfileModel? completeProfile;
 
-  Future<void> saveUserDetails(String t, Profile p) async {
+  Future<void> saveUserDetails(
+      String t, ReadProfileModel? r, CompleteProfileModel? p) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('token', t);
-    await sharedPreferences.setString('profile', jsonEncode(p.toJson()));
+    await sharedPreferences.setString('readProfile', jsonEncode(r?.toJson()));
+    await sharedPreferences.setString(
+        'completeProfile', jsonEncode(p?.toJson()));
     token = t;
-    profile = p;
-
-    
+    readProfile = r;
+    completeProfile = p;
   }
 
   Future<void> initialize() async {
     token = await _getToken();
-    profile = await _getProfile();
+    readProfile = await _getReadProfile();
+    completeProfile = await _getCompleteProfile();
   }
 
   Future<bool> isLoggedIn() async {
@@ -37,19 +41,31 @@ class AuthController extends GetxController {
     return sharedPreferences.getString('token');
   }
 
-  Future<Profile?> _getProfile() async {
+  Future<ReadProfileModel?> _getReadProfile() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    final String? strProfile = sharedPreferences.getString('profile');
-    if (strProfile == null) {
+    final String? rdStrProfile = sharedPreferences.getString('readProfile');
+    final bool result = rdStrProfile.toString() == null.toString();
+    if (result) {
       return null;
     } else {
-      return Profile.fromJson(jsonDecode(strProfile));
+      return ReadProfileModel.fromJson(jsonDecode(rdStrProfile!));
+    }
+  }
+
+  Future<CompleteProfileModel?> _getCompleteProfile() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final String? cmStrProfile = sharedPreferences.getString('completeProfile');
+    final bool result = cmStrProfile.toString() == null.toString();
+    if (result) {
+      return null;
+    } else {
+      return CompleteProfileModel.fromJson(jsonDecode(cmStrProfile!));
     }
   }
 
   static Future<void> clearAuthData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
+    sharedPreferences.clear();
     token = null;
   }
 

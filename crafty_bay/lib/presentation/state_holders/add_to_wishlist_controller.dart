@@ -1,30 +1,31 @@
-import 'package:crafty_bay/data/utility/urls.dart';
 import 'package:get/get.dart';
-import '../../data/models/response_data.dart';
 import '../../data/service/network_caller.dart';
+import '../../data/utility/urls.dart';
 
-class SendEmailOtpController extends GetxController {
+class AddToWishListController extends GetxController {
   bool _inProgress = false;
+
   bool get inProgress => _inProgress;
 
   String _errorMessage = '';
+
   String get errorMessage => _errorMessage;
 
-  Future<bool> sendEmailOtp(String email) async {
+  Future<bool> addToWishList(int productId) async {
+    bool isSuccess = false;
     _inProgress = true;
     update();
 
-    final ResponseData response =
-        await NetworkCaller().getRequest(Urls.sendOtpEmail(email));
+    final response = await NetworkCaller().getRequest(
+      Urls.addToWishList(productId),
+    );
     _inProgress = false;
-
     if (response.isSuccess) {
-      update();
-      return true;
+      isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;
-      update();
-      return false;
     }
+    update();
+    return isSuccess;
   }
 }

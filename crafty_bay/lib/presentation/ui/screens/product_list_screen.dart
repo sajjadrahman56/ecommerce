@@ -1,17 +1,15 @@
-import 'package:crafty_bay/presentation/state_holders/product_controller.dart';
-//import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indicator.dart';
-import 'package:crafty_bay/presentation/ui/widgets/product_card_item.dart';
+import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/circular_progress_indicator.dart';
+import '../../state_holders/product_list_controller.dart';
+import '../widgets/product_card.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key, this.category, this.categoryId});
+  const ProductListScreen({super.key, this.title, this.id});
 
-  final String? category;
-  final int? categoryId;
-
+  final String? title;
+  final int? id;
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
 }
@@ -20,9 +18,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.categoryId != null) {
-      Get.find<ProductController>()
-          .getProductList(categoryId: widget.categoryId!);
+    if (widget.id != null) {
+      Get.find<ProductListController>().getProductList(id: widget.id!);
     }
   }
 
@@ -30,32 +27,31 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.category ?? 'Products'),
+        title: Text(widget.title ?? 'All Products'),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: GetBuilder<ProductController>(builder: (productController) {
+        padding: const EdgeInsets.only(left: 12, right: 12),
+        child: GetBuilder<ProductListController>(builder: (controller) {
           return Visibility(
-            visible: productController.inProgress == false,
-            replacement: const CenterCircularProgressIndicator(),
+            visible: controller.inProgress == false,
+            replacement: const CenterCircularProgressIndication(),
             child: Visibility(
-              visible: productController.productListModel.productList?.isNotEmpty ?? false,
-              replacement: const Center(
-                child: Text('No products'),
-              ),
+              visible:
+                  controller.productListModel.productList?.isNotEmpty ?? false,
+              replacement: const Center(child: Text('Product Not Available')),
               child: GridView.builder(
-                itemCount:
-                    productController.productListModel.productList?.length ?? 0,
+                itemCount: controller.productListModel.productList?.length ?? 0,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 0.90,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 4),
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 0.8,
+                ),
                 itemBuilder: (context, index) {
                   return FittedBox(
-                    child: ProductCardItem(
-                      product:
-                          productController.productListModel.productList![index],
+                    child: ProductCard(
+                      productModel:
+                          controller.productListModel.productList![index],
                     ),
                   );
                 },
