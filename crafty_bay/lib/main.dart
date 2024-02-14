@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
- 
-import 'app.dart';
- 
 
+import 'app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  runApp(const CraftyBuy() );
+  runApp(const CraftyBay());
 }
-

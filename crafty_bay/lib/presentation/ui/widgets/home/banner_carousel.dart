@@ -75,22 +75,44 @@ class _BannerCarouselState extends State<BannerCarousel> {
                                     color: Colors.grey.shade800,
                                     overflow: TextOverflow.ellipsis),
                               ),
-                              SizedBox(
-                                height: 30,
-                                width: 100,
-                                child: ElevatedButton(
+                              SizedBox(height: 8,),
+                              Text(
+                                banner.shortDes ?? '',
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey.shade800,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
+                              const SizedBox(height: 8),
+                              Center(
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 100,
+                                  child: TextButton(
                                     onPressed: () {
-                                      Get.to(() => ProductDetailsScreen(
-                                          productId: banner.productId!));
+                                       if (banner.productId != null) {
+      Get.to(() => ProductDetailsScreen(productId: banner.productId!));
+    } else {
+      // Handle the case where productId is null
+      // For example, you can show a snackbar or log an error
+      print('Product ID is null');
+    }
+                                      // Get.to(() => ProductDetailsScreen(
+                                      //     productId: banner.productId!
+                                      //     ));
                                     },
-                                style: ElevatedButton.styleFrom(
-                                  padding:const  EdgeInsets.all(0)
-                                ),
-                                    child: const Text(
-                                      'Buy Now',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700),
+                                    style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.all(0),
                                     ),
+                                    child: const Text(
+                                      'See More', // Changed this line
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               )
                             ],

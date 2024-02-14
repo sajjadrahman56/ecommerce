@@ -1,9 +1,7 @@
-import 'package:crafty_bay/data/models/product_details_data.dart';
 import 'package:crafty_bay/data/models/product_details_model.dart';
 import 'package:get/get.dart';
 import '../../data/service/network_caller.dart';
 import '../../data/utility/urls.dart'; 
-
 class ProductDetailsController extends GetxController {
   bool _inProgress = false;
 
@@ -15,8 +13,7 @@ class ProductDetailsController extends GetxController {
 
   ProductDetailsModel _productDetailsModel = ProductDetailsModel();
 
-  ProductDetailsData get productDetails =>
-      _productDetailsModel.productDetailsDataList!.first;
+  ProductDetailsModel get productDetailsModel => _productDetailsModel;
 
   Future<bool> getProductDetails(int productId) async {
     bool isSuccess = false;

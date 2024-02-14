@@ -6,7 +6,6 @@ import 'package:crafty_bay/presentation/ui/widgets/product_details/size_selector
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
-
 import '../../state_holders/add_to_cart_controller.dart';
 import '../../state_holders/add_to_wishlist_controller.dart';
 import '../../state_holders/auth_controller.dart';
@@ -16,7 +15,7 @@ import '../widgets/product_details/color_selector.dart';
 import 'auth/verify_eamil_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key, required this.productId});
+  const ProductDetailsScreen({Key? key, required this.productId});
 
   final int productId;
 
@@ -46,31 +45,51 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       body: GetBuilder<ProductDetailsController>(builder: (controller) {
         if (controller.inProgress) {
           return const CenterCircularProgressIndication();
-        }
-
-        return Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ProductImageCarousel(
-                      imgUrls: [
-                        controller.productDetails.img1 ?? '',
-                        controller.productDetails.img2 ?? '',
-                        controller.productDetails.img3 ?? '',
-                        controller.productDetails.img4 ?? '',
-                      ],
-                    ),
-                    const SizedBox(height: 1),
-                    productDetailsBody(controller.productDetails),
-                  ],
+        } else if (controller.productDetailsModel.productDetailsDataList ==
+                null ||
+            controller.productDetailsModel.productDetailsDataList!.isEmpty) {
+          return Center(
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.red,
+              child: const Text(
+                'Product details not available',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
-            priceAndAddToCartSection,
-          ],
-        );
+          );
+        } else {
+          final productDetails =
+              controller.productDetailsModel.productDetailsDataList![0];
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ProductImageCarousel(
+                        imgUrls: [
+                          productDetails.img1 ?? '',
+                          productDetails.img2 ?? '',
+                          productDetails.img3 ?? '',
+                          productDetails.img4 ?? '',
+                        ],
+                      ),
+                      const SizedBox(height: 1),
+                      productDetailsBody(productDetails),
+                    ],
+                  ),
+                ),
+              ),
+              priceAndAddToCartSection,
+            ],
+          );
+        }
       }),
     );
   }
@@ -276,7 +295,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               Text(
-                '\$${Get.find<ProductDetailsController>().productDetails.product?.price ?? 0}',
+                // '\$${Get.find<ProductDetailsController>().productDetails.product?.price ?? 0}',
+                '\$${Get.find<ProductDetailsController>().productDetailsModel.productDetailsDataList!.first.product?.price ?? 0}',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
@@ -366,18 +386,4 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     }
     return '';
   }
-
-// Color getColorFromString(String colorCode) {
-//   String code = colorCode.replaceAll('#', '');
-//   String hexCode = 'FF$code';
-//   return Color(int.parse('0x$hexCode'));
-// }
-//
-// String colorToHashColorCode(String colorCode) {
-//   return colorCode
-//       .toString()
-//       .replaceAll('0xff', '#')
-//       .replaceAll('Color(', '')
-//       .replaceAll(')', '');
-// }
 }

@@ -1,108 +1,19 @@
-import 'package:crafty_bay/controller_binder.dart';
-import 'package:crafty_bay/presentation/ui/screens/auth/splash_screen.dart';
- 
-import 'package:flutter/material.dart';
+import 'package:crafty_bay/presentation/ui/screens/splash_screen.dart';
+import 'package:crafty_bay/presentation/ui/utility/app_theme_data.dart';
 import 'package:get/get.dart';
-import 'presentation/ui/utility/app_colors.dart';
- 
+import 'package:flutter/material.dart';
 
-class CraftyBuy extends StatefulWidget {
-  const CraftyBuy({super.key});
+import 'controller_binder.dart';
 
-  @override
-  State<CraftyBuy> createState() => _CraftyBuyState();
-}
+class CraftyBay extends StatelessWidget {
+  const CraftyBay({super.key});
 
-class _CraftyBuyState extends State<CraftyBuy> {
   @override
   Widget build(BuildContext context) {
-    return   GetMaterialApp(
-      theme: ThemeData(
-        primarySwatch:MaterialColor(
-           AppColors.primaryColor.value,
-           AppColors.colorSwatch
-        ),
-        progressIndicatorTheme: const ProgressIndicatorThemeData(
-          color: AppColors.primaryColor
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-          contentPadding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryColor,
-
-            )
-          ),
-          
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryColor,
-
-            )
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryColor,
-
-            )
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryColor,
-
-            )
-          ),
-
-          
-
-        ),
-
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-               backgroundColor:  AppColors.primaryColor,
-               padding: const EdgeInsets.symmetric(vertical: 14),
-               textStyle: const TextStyle(
-                 fontSize: 14,
-                 letterSpacing: 0.5
-               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8)
-              ),
-              foregroundColor: Colors.white
-            ),
-          ),
-        textButtonTheme: TextButtonThemeData(
-             style: TextButton.styleFrom(
-               
-              foregroundColor: AppColors.primaryColor,
-             ),
-          ),
-
-        textTheme:   TextTheme(
-          titleLarge: const TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold
-          ),
-          bodySmall: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey.shade600
-          ),
-        ),
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(fontSize: 18,color: Colors.black),
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.white,
-          elevation: 5
-        )
-        
-      ) ,
-      home:const SplashScreen(),
+    return GetMaterialApp(
+      home: const SplashScreen(),
+      theme: AppThemeData.lightTheme,
       initialBinding: ControllerBinder(),
     );
   }
 }
-
-
-
-

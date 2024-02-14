@@ -1,10 +1,11 @@
 import 'package:crafty_bay/presentation/state_holders/verify_otp_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/auth/complete_profile_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
+import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../../state_holders/otp_time_decrease_controller.dart';
+import '../../widgets/otp_time_decrase.dart';
 import '../../widgets/app_logo.dart';
 import '../main_bottom_nav_screen.dart';
  
@@ -18,8 +19,8 @@ class VerifyOtpScreen extends StatefulWidget {
 }
 
 class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
-  final OtpTimeDecreaseController _otpTimeDecrease =
-      Get.find<OtpTimeDecreaseController>();
+  final OtpTimeDecreasCount _otpTimeDecrease =
+      Get.find<OtpTimeDecreasCount>();
 
   final TextEditingController _otpTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -91,7 +92,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   width: double.infinity,
                   child: Visibility(
                     visible: controller.inProgress == false,
-                    replacement: const CircularProgressIndicator(),
+                    replacement: const CenterCircularProgressIndication(),
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
@@ -120,7 +121,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                 );
               }),
               const SizedBox(height: 24),
-              GetBuilder<OtpTimeDecreaseController>(builder: (controller) {
+              GetBuilder<OtpTimeDecreasCount>(builder: (controller) {
                 return RichText(
                   text: TextSpan(
                     style: const TextStyle(color: Colors.grey),
