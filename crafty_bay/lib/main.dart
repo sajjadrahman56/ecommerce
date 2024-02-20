@@ -6,3 +6,4 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const CraftyBay());
 }
+
