@@ -63,9 +63,6 @@ class AppThemeData {
         shadowColor: Colors.black,
         backgroundColor: Colors.white,
       )
-      // primarySwatch: MaterialColor(
-      //   AppColors.primaryColor.value,
-      //   AppColors.colorSwatch,
       // ),
       );
 }
