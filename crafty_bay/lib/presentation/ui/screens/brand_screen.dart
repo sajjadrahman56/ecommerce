@@ -1,8 +1,6 @@
 import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
 import '../../state_holders/brand_list_controller.dart';
 import '../widgets/category_brand_item.dart';
 

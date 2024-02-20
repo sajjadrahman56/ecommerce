@@ -1,8 +1,6 @@
-
 import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../state_holders/add_review_controller.dart';
 
 class CreateReviewScreen extends StatefulWidget {

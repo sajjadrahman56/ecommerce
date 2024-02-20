@@ -1,10 +1,8 @@
-
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../state_holders/auth_controller.dart';
 import 'auth/verify_eamil_screen.dart';
-
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});

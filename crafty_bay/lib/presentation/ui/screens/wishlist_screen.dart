@@ -2,7 +2,6 @@ import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indi
 import 'package:crafty_bay/presentation/ui/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../../state_holders/wish_list_controller.dart';
 

@@ -75,7 +75,9 @@ class _BannerCarouselState extends State<BannerCarousel> {
                                     color: Colors.grey.shade800,
                                     overflow: TextOverflow.ellipsis),
                               ),
-                              SizedBox(height: 8,),
+                              SizedBox(
+                                height: 8,
+                              ),
                               Text(
                                 banner.shortDes ?? '',
                                 maxLines: 2,
@@ -92,16 +94,10 @@ class _BannerCarouselState extends State<BannerCarousel> {
                                   width: 100,
                                   child: TextButton(
                                     onPressed: () {
-                                       if (banner.productId != null) {
-      Get.to(() => ProductDetailsScreen(productId: banner.productId!));
-    } else {
-      // Handle the case where productId is null
-      // For example, you can show a snackbar or log an error
-      print('Product ID is null');
-    }
-                                      // Get.to(() => ProductDetailsScreen(
-                                      //     productId: banner.productId!
-                                      //     ));
+                                      if (banner.productId != null) {
+                                        Get.to(() => ProductDetailsScreen(
+                                            productId: banner.productId!));
+                                      } else {}
                                     },
                                     style: TextButton.styleFrom(
                                       padding: const EdgeInsets.all(0),
